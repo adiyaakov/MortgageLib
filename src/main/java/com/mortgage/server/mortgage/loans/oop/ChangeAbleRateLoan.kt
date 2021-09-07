@@ -22,14 +22,14 @@ open class ChangeAbleRateLoan(monthlyMadadChanges: Double?, val interestRateChan
         this.rate += interestRateChangesPerJump;
     }
 
-    override fun calculatesPaymentsFlowChart(limit: Int) {
+    override fun calculatesPaymentsFlowChart(limit: Int): List<LoanPayment> {
         println("Loan start")
         var currentPrinciple = calculatesPrincipleChanges(principle)
-
+        val result = emptyList<LoanPayment>()
 
         for (index in 0 until limit) {
             if (principle == 0.0) {
-                return
+                break
             }
             if (index != 0) {
                 currentPrinciple = calculatesPrincipleChanges(currentPrinciple)
@@ -40,7 +40,8 @@ open class ChangeAbleRateLoan(monthlyMadadChanges: Double?, val interestRateChan
             currentPrinciple -= (downPayment - ratePayment)
 
             val loanPayment = LoanPayment(currentPrinciple, ratePayment, downPayment)
-            loanPayment.print()
+            result.plus(loanPayment)
         }
+        return result
     }
 }

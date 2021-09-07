@@ -17,22 +17,23 @@ open class FixedRate(var monthlyMadad: Double? = null) : AbstractLoan() {
         return currentPrinciple * (rate / 12) / 100
     }
 
-    override fun calculatesPaymentsFlowChart(limit: Int) {
+    override fun calculatesPaymentsFlowChart(limit: Int) : List<LoanPayment> {
         println("Loan start")
         var currentPrinciple = principle
         val downPayment = downPayment(principle, 12 * this.yearsLength)
-
+        val result = emptyList<LoanPayment>()
         for (index in 0 until limit) {
             if (principle == 0.0) {
-                return
+                break
             }
             val ratePayment = getRateFor(currentPrinciple, index + 1)
 
             currentPrinciple -= (downPayment - ratePayment)
 
             val loanPayment = LoanPayment(currentPrinciple, ratePayment, downPayment)
-            loanPayment.print()
+            result.plus(loanPayment)
         }
+        return result
 
     }
 

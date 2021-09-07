@@ -1,6 +1,7 @@
 package com.mortgage.server.mortgage.loans.oop
 
 import com.mortgage.server.mortgage.enums.RateChangesJumps
+import com.mortgage.server.mortgage.models.LoanPayment
 
 abstract class AbstractLoan {
     protected var principle = 90000.0
@@ -11,7 +12,7 @@ abstract class AbstractLoan {
     }
 
     abstract fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double
-    abstract fun calculatesPaymentsFlowChart(limit: Int = totalMonths())
+    abstract fun calculatesPaymentsFlowChart(limit: Int = totalMonths()) : List<LoanPayment>
     abstract fun calculatesPrincipleChanges(monthlyPrinciple: Double) : Double
     abstract fun prepareForRateChange(paymentNumber: Int)
     abstract fun rateChangesJump() : RateChangesJumps
