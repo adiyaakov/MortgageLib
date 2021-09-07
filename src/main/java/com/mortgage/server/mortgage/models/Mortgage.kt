@@ -29,7 +29,8 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
     fun insertOrUpdateLoan(loanType: LoanType , loan: AbstractLoan?) {
         loan?.let {it
             mortgage.put(loanType, it)
-        } ?: mortgage.remove(loanType)
+        }
+                //?: mortgage.remove(loanType)
 
     }
 
