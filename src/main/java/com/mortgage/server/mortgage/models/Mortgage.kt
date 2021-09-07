@@ -37,6 +37,10 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         return netDisposableIncome * 0.4
     }
 
+    fun minimumValidEquity() : Double {
+        return assetWorth * 0.25
+    }
+
     fun isValidDownPayment() : Boolean {
         val totalDownPayments = mortgage.values.sumByDouble { l -> l.getFirstPayment() }
         return maximumValidRefundCapability() > totalDownPayments
