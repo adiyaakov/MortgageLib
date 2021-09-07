@@ -22,9 +22,8 @@ abstract class AbstractLoan {
     }
 
     fun getFirstPayment() : Double {
-        return 100.0
-        //TODO""
-        //calculatesPaymentsFlowChart(1)
+        val value = calculatesPaymentsFlowChart(1).firstOrNull()?.downPayment
+        return value ?: 0.0
     }
 
 }
