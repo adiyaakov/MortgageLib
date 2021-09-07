@@ -4,10 +4,10 @@ import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.models.LoanPayment
 
 abstract class AbstractLoan {
-    protected var principle = 90000.0
-    protected var yearsLength = 12
-    protected var rate = 1.85
-    protected fun totalMonths(): Int {
+    var principle = 90000.0
+    var yearsLength = 12
+    var rate = 1.85
+    fun totalMonths(): Int {
         return (yearsLength * 12)
     }
 
