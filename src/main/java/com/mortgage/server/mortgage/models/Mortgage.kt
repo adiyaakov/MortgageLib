@@ -5,7 +5,8 @@ import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 
 class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability: Double) {
     public var netDisposableIncome: Double = 0.0
-    private val mortgage: HashMap<LoanType, AbstractLoan> = HashMap();
+    var mortgage: HashMap<LoanType, AbstractLoan> = HashMap()
+        private set
 
     private val totalLoanAmount: Double
         get() {
