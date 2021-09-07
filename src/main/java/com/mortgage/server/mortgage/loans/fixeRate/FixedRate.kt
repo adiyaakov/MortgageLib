@@ -21,7 +21,7 @@ open class FixedRate(var monthlyMadad: Double? = null) : AbstractLoan() {
         println("Loan start")
         var currentPrinciple = principle
         val downPayment = downPayment(principle, 12 * this.yearsLength)
-        val result = emptyList<LoanPayment>()
+        val result = ArrayList<LoanPayment>()
         for (index in 0 until limit) {
             if (principle == 0.0) {
                 break
@@ -31,7 +31,7 @@ open class FixedRate(var monthlyMadad: Double? = null) : AbstractLoan() {
             currentPrinciple -= (downPayment - ratePayment)
 
             val loanPayment = LoanPayment(currentPrinciple, ratePayment, downPayment)
-            result.plus(loanPayment)
+            result.add(loanPayment)
         }
         return result
 
