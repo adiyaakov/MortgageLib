@@ -4,7 +4,7 @@ import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 
 class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability: Double) {
-    private val netDisposableIncome: Double = 0.0
+    public var netDisposableIncome: Double = 0.0
     private val mortgage: HashMap<LoanType, AbstractLoan> = HashMap();
 
     private val totalLoanAmount: Double
