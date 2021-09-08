@@ -6,7 +6,7 @@ import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 import com.mortgage.server.mortgage.models.LoanPayment
 import kotlin.math.pow
 
-open class FixedRate(loanType: LoanType, var monthlyMadad: Double? = null) : AbstractLoan(loanType) {
+open class FixedRate(principle: Double = 0.0, rate: Double = 0.0, monthsLength: Int = 0, loanType: LoanType = LoanType.FIX_RATE, var monthlyMadad: Double? = null) : AbstractLoan(loanType, principle, rate, monthsLength) {
     override fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double {
         val monthlyRate = rate / 12.0 / 100.0
         return currentPrinciple * monthlyRate * (1 + monthlyRate).pow(monthsRemains.toDouble()) /
@@ -21,7 +21,7 @@ open class FixedRate(loanType: LoanType, var monthlyMadad: Double? = null) : Abs
     override fun calculatesPaymentsFlowChart(limit: Int) : List<LoanPayment> {
         println("Loan start")
         var currentPrinciple = principle
-        val downPayment = downPayment(principle, 12 * this.yearsLength)
+        val downPayment = downPayment(principle, monthsLength)
         val result = ArrayList<LoanPayment>()
         for (index in 0 until limit) {
             if (principle == 0.0) {

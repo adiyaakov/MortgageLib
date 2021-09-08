@@ -4,16 +4,9 @@ import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.models.LoanPayment
 
-abstract class AbstractLoan(var loanType: LoanType) {
-    var principle = 0.0
-    var yearsLength = 0
-    var rate = 0.0
-    fun totalMonths(): Int {
-        return (yearsLength * 12)
-    }
-
+abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0, var rate: Double = 0.0, var monthsLength: Int = 0) {
     abstract fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double
-    abstract fun calculatesPaymentsFlowChart(limit: Int = totalMonths()) : List<LoanPayment>
+    abstract fun calculatesPaymentsFlowChart(limit: Int = monthsLength) : List<LoanPayment>
     abstract fun calculatesPrincipleChanges(monthlyPrinciple: Double) : Double
     abstract fun prepareForRateChange(paymentNumber: Int)
     abstract fun rateChangesJump() : RateChangesJumps
