@@ -1,11 +1,12 @@
 package com.mortgage.server.mortgage.loans.fixeRate
 
+import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 import com.mortgage.server.mortgage.models.LoanPayment
 import kotlin.math.pow
 
-open class FixedRate(var monthlyMadad: Double? = null) : AbstractLoan() {
+open class FixedRate(loanType: LoanType, var monthlyMadad: Double? = null) : AbstractLoan(loanType) {
     override fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double {
         val monthlyRate = rate / 12.0 / 100.0
         return currentPrinciple * monthlyRate * (1 + monthlyRate).pow(monthsRemains.toDouble()) /

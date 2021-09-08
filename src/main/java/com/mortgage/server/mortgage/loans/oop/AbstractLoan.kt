@@ -1,12 +1,13 @@
 package com.mortgage.server.mortgage.loans.oop
 
+import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.models.LoanPayment
 
-abstract class AbstractLoan {
-    var principle = 90000.0
-    var yearsLength = 12
-    var rate = 1.85
+abstract class AbstractLoan(var loanType: LoanType) {
+    var principle = 0.0
+    var yearsLength = 0
+    var rate = 0.0
     fun totalMonths(): Int {
         return (yearsLength * 12)
     }

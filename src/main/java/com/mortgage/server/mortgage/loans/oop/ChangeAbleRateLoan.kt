@@ -1,10 +1,11 @@
 package com.mortgage.server.mortgage.loans.oop
 
+import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.loans.fixeRate.FixedRate
 import com.mortgage.server.mortgage.models.LoanPayment
 
-open class ChangeAbleRateLoan(monthlyMadadChanges: Double?, val interestRateChangesPerJump: Double = 0.0) : FixedRate(monthlyMadadChanges) {
+open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, val interestRateChangesPerJump: Double = 0.0) : FixedRate(loanType, monthlyMadadChanges) {
 
     override fun prepareForRateChange(paymentNumber: Int) {
         when(rateChangesJump()) {

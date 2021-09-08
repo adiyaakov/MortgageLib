@@ -1,11 +1,10 @@
 package com.mortgage.server.mortgage.models
 
-import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 
 class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability: Double) {
     public var netDisposableIncome: Double = 0.0
-    var mortgage: HashMap<LoanType, AbstractLoan> = HashMap()
+    var loansMix: ArrayList<AbstractLoan> = ArrayList()
         private set
 
     private val totalLoanAmount: Double
@@ -26,12 +25,18 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         return getFinancingPercentage() <= 0.75
     }
 
-    fun insertOrUpdateLoan(loanType: LoanType , loan: AbstractLoan?) {
-        loan?.let {it
-            mortgage.put(loanType, it)
+    fun insertOrUpdateLoan(index: Int? , loan: AbstractLoan) {
+        if (index != null) {
+            loansMix.add(index, loan)
+        } else {
+            loansMix.add(loan)
         }
-                //?: mortgage.remove(loanType)
+    }
 
+    fun removeLoan(index: Int) {
+        if (loansMix.size > index) {
+            loansMix.removeAt(index)
+        }
     }
 
     fun maximumValidRefundCapability() : Double {
@@ -43,7 +48,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
     }
 
     fun isValidDownPayment() : Boolean {
-        val totalDownPayments = mortgage.values.sumByDouble { l -> l.getFirstPayment() }
+        val totalDownPayments = loansMix.sumByDouble { l -> l.getFirstPayment() }
         return maximumValidRefundCapability() > totalDownPayments
 
     }
