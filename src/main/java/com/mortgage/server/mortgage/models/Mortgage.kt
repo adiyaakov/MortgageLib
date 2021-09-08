@@ -3,7 +3,13 @@ package com.mortgage.server.mortgage.models
 import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 
 class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability: Double) {
-    public var netDisposableIncome: Double = 0.0
+    public var monthlyNetIncomes: Double = 0.0
+    public var monthlyLoanExpenses: Double = 0.0
+
+    fun availableMoneyPerMonth() : Double {
+        return monthlyNetIncomes - monthlyLoanExpenses
+    }
+
     var loansMix: ArrayList<AbstractLoan> = ArrayList()
         private set
 
@@ -40,7 +46,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
     }
 
     fun maximumValidRefundCapability() : Double {
-        return netDisposableIncome * 0.4
+        return availableMoneyPerMonth() * 0.4
     }
 
     fun minimumValidEquity() : Double {
