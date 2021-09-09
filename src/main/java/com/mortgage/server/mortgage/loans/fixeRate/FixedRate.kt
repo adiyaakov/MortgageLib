@@ -23,7 +23,7 @@ open class FixedRate(principle: Double = 0.0, rate: Double = 0.0, monthsLength: 
         var currentPrinciple = principle
         val downPayment = downPayment(principle, monthsLength)
         val result = ArrayList<LoanPayment>()
-        for (index in 1 until limit) {
+        for (index in 0 until limit -1) {
             if (principle == 0.0) {
                 break
             }
@@ -32,7 +32,7 @@ open class FixedRate(principle: Double = 0.0, rate: Double = 0.0, monthsLength: 
             if (index != 0) {
                 currentPrinciple -= (downPayment - ratePayment)
             }
-            
+
             val loanPayment = LoanPayment(currentPrinciple, ratePayment, downPayment)
             result.add(loanPayment)
         }

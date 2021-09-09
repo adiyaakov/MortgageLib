@@ -22,14 +22,15 @@ open class FixedRate(var monthlyMadad: Double? = null) : AbstractLoan() {
         var currentPrinciple = principle
         val downPayment = downPayment(principle, 12 * this.yearsLength)
 
-        for (index in 0 until limit) {
+        for (index in 0 until limit -1) {
             if (principle == 0.0) {
                 return
             }
             val ratePayment = getRateFor(currentPrinciple, index + 1)
 
-            currentPrinciple -= (downPayment - ratePayment)
-
+            if(index != 0) {
+                currentPrinciple -= (downPayment - ratePayment)
+            }
             val loanPayment = LoanPayment(currentPrinciple, ratePayment, downPayment)
             loanPayment.print()
         }

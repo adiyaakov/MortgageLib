@@ -12,6 +12,6 @@ object MortgageApplication {
     }
 
     fun printILoveYou() {
-        StickyFixedRateLoan(100000.0, 4.3, 360, 0.125).calculatesPaymentsFlowChart()
+        FixedRate(100000.0, 4.3, 120)    .calculatesPaymentsFlowChart()
     }
 }
