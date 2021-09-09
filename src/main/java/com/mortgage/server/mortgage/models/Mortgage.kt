@@ -58,4 +58,31 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         return maximumValidRefundCapability() > totalDownPayments
 
     }
+
+    fun getMonthlyMortgageDownPayment() : List<LoanPayment> {
+        loansMix.sortByDescending { it.monthsLength }
+        if (loansMix.size == 0) {
+            return emptyList()
+        }
+
+        val data: ArrayList<LoanPayment> = ArrayList()
+
+        val flowChart = loansMix.map { it.calculatesPaymentsFlowChart() }
+
+        for(n in 0 until loansMix[0].monthsLength){
+            var initialPrinciple = 0.0
+            var ratePayment: Double = 0.0
+            var downPayment: Double = 0.0
+
+            flowChart.forEachIndexed{index, payments ->
+                if (payments.indices.contains(n)) {
+                    initialPrinciple += payments[n].initialPrinciple
+                    ratePayment += payments[n].ratePayment
+                    downPayment += payments[n].downPayment
+                }
+            }
+            data.add(LoanPayment(initialPrinciple, ratePayment, downPayment))
+        }
+        return data;
+    }
 }
