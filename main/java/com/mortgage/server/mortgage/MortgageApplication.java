@@ -11,8 +11,10 @@ public class MortgageApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MortgageApplication.class, args);
 
-		Mortgage mortgage = new Mortgage(1000000, 200000, 5000);
-		mortgage.getDealBalance();
+//		Mortgage mortgage = new Mortgage(1000000, 200000, 5000);
+//		mortgage.getDealBalance();
+
+
 	}
 
 }
