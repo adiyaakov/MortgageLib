@@ -5,6 +5,6 @@ import java.text.NumberFormat
 
 open class LoanPayment(var initialPrinciple: Double, var ratePayment: Double, var downPayment: Double) {
     var afterPaymentPrinciple = initialPrinciple - fundPayment();
-    private fun fundPayment() = downPayment - ratePayment;
+    fun fundPayment() = downPayment - ratePayment;
 
 }
