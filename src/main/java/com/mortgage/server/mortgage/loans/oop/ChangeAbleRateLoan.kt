@@ -28,7 +28,7 @@ open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, 
         var currentPrinciple = calculatesPrincipleChanges(principle)
         val result = ArrayList<LoanPayment>()
 
-        for (index in 0 until limit - 1) {
+        for (index in 0 until limit) {
             if (principle == 0.0) {
                 break
             }
@@ -36,7 +36,7 @@ open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, 
                 currentPrinciple = calculatesPrincipleChanges(currentPrinciple)
             }
             val ratePayment = getRateFor(currentPrinciple, index + 1)
-            val downPayment = downPayment(currentPrinciple, monthsLength - index)
+            val downPayment = downPayment(currentPrinciple, monthsLength - 1 - index)
 
             if (index != 0) {
                 currentPrinciple -= (downPayment - ratePayment)

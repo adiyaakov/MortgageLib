@@ -8,7 +8,7 @@ import com.mortgage.server.mortgage.models.Mortgage
 object MortgageApplication {
     @JvmStatic
     fun main(args: Array<String>) {
-//        FixedRate(76710.0, 1.82, 36).calculatesPaymentsFlowChart()
+        StickyFixedRateLoan(76710.0, 1.82, 36, 0.0).getFirstPayment()
 
     }
 

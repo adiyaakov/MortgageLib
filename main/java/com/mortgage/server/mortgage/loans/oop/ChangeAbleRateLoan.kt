@@ -35,7 +35,7 @@ open class ChangeAbleRateLoan(monthlyMadadChanges: Double?, val interestRateChan
                 currentPrinciple = calculatesPrincipleChanges(currentPrinciple)
             }
             val ratePayment = getRateFor(currentPrinciple, index + 1)
-            val downPayment = downPayment(currentPrinciple, (12 * this.yearsLength) - index)
+            val downPayment = downPayment(currentPrinciple, monthsLength -1 - index)
 
             currentPrinciple -= (downPayment - ratePayment)
 
