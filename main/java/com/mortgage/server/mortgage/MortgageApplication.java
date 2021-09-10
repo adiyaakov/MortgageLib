@@ -7,14 +7,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class MortgageApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(MortgageApplication.class, args);
-
+//
+//	public static void main(String[] args) {
+//		SpringApplication.run(MortgageApplication.class, args);
+//
 //		Mortgage mortgage = new Mortgage(1000000, 200000, 5000);
 //		mortgage.getDealBalance();
-
-
-	}
+//
+//		Fo
+//
+//	}
 
 }

@@ -8,10 +8,9 @@ import com.mortgage.server.mortgage.models.Mortgage
 object MortgageApplication {
     @JvmStatic
     fun main(args: Array<String>) {
-        printILoveYou()
+//        FixedRate(300000.0, 4.3, 120).calculatesPaymentsFlowChart()
+
     }
 
-    fun printILoveYou() {
-        FixedRate(100000.0, 4.3, 120)    .calculatesPaymentsFlowChart()
-    }
+
 }

@@ -16,7 +16,7 @@ abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,
     }
 
     fun getFirstPayment() : Double {
-        val value = calculatesPaymentsFlowChart(1).firstOrNull()?.downPayment
+        val value = calculatesPaymentsFlowChart(2).firstOrNull()?.downPayment
         return value ?: 0.0
     }
 
