@@ -19,21 +19,15 @@ open class FixedRate(principle: Double = 0.0, rate: Double = 0.0, monthsLength: 
     }
 
     override fun calculatesPaymentsFlowChart(limit: Int) : List<LoanPayment> {
-        println("Loan start")
-        var currentPrinciple = principle
         val downPayment = downPayment(principle, monthsLength)
         val result = ArrayList<LoanPayment>()
         for (index in 0 until limit) {
+            val monthInitialPrinciple = if (result.isEmpty()) principle else result[index -1].afterPaymentPrinciple
             if (principle == 0.0) {
                 break
             }
-            val ratePayment = getRateFor(currentPrinciple, index + 1)
-
-            if (index != 0) {
-                currentPrinciple -= (downPayment - ratePayment)
-            }
-
-            val loanPayment = LoanPayment(currentPrinciple, ratePayment, downPayment)
+            val ratePayment = getRateFor(monthInitialPrinciple, index + 1)
+            val loanPayment = LoanPayment(monthInitialPrinciple, ratePayment, downPayment)
             result.add(loanPayment)
         }
         return result
