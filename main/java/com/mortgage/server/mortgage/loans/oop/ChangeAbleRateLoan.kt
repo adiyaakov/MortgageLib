@@ -27,7 +27,7 @@ open class ChangeAbleRateLoan(monthlyMadadChanges: Double?, val interestRateChan
         var currentPrinciple = calculatesPrincipleChanges(principle)
 
 
-        for (index in 0 until limit -1) {
+        for (index in 0 until limit) {
             if (principle == 0.0) {
                 return
             }

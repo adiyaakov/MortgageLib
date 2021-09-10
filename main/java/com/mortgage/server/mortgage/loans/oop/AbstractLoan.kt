@@ -11,7 +11,7 @@ abstract class AbstractLoan {
     }
 
     abstract fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double
-    abstract fun calculatesPaymentsFlowChart(limit: Int = totalMonths())
+    abstract fun calculatesPaymentsFlowChart(limit: Int = totalMonths() - 1)
     abstract fun calculatesPrincipleChanges(monthlyPrinciple: Double) : Double
     abstract fun prepareForRateChange(paymentNumber: Int)
     abstract fun rateChangesJump() : RateChangesJumps
