@@ -8,19 +8,13 @@ import com.mortgage.server.mortgage.models.LoanPayment
 open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, val interestRateChangesPerJump: Double = 0.0, principle: Double = 0.0, rate: Double = 0.0, monthsLength: Int = 0) : FixedRate(principle, rate, monthsLength, loanType, monthlyMadadChanges) {
 
     override fun prepareForRateChange(paymentNumber: Int) {
-//        when(rateChangesJump()) {
-//            RateChangesJumps.NONE -> return
-//            else -> {
-//                if (paymentNumber % rateChangesJump().getChangesPeriod() == 0) {
-//                    println("Updating rate at index " + paymentNumber)
-//                    updateRate()
-//                }
-//            }
-//        }
     }
 
     private fun shouldPrepareForRateChange(paymentNumber: Int) : Boolean {
-        return paymentNumber % rateChangesJump().getChangesPeriod() == 0
+        if ((paymentNumber % rateChangesJump().getChangesPeriod()) > 0) {
+            return false
+        }
+        return true
     }
 
     private fun updateRate() {
