@@ -18,7 +18,8 @@ open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, 
     }
 
     private fun updateRate() {
-        this.rate += interestRateChangesPerJump;
+        var newRate = currentRate() + interestRateChangesPerJump
+        this.rates.add(newRate)
     }
 
     override fun calculatesPaymentsFlowChart(limit: Int): List<LoanPayment> {

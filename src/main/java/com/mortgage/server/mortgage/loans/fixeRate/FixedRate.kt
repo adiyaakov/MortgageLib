@@ -8,14 +8,14 @@ import kotlin.math.pow
 
 open class FixedRate(principle: Double = 0.0, rate: Double = 0.0, monthsLength: Int = 0, loanType: LoanType = LoanType.FIX_RATE, var monthlyMadad: Double? = null) : AbstractLoan(loanType, principle, rate, monthsLength) {
     override fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double {
-        val monthlyRate = rate / 12.0 / 100.0
+        val monthlyRate = currentRate() / 12.0 / 100.0
         return currentPrinciple * monthlyRate * (1 + monthlyRate).pow(monthsRemains.toDouble()) /
                 ((1 + monthlyRate).pow(monthsRemains.toDouble()) - 1)
     }
 
     protected fun getRateFor(currentPrinciple: Double, paymentNumber: Int): Double {
         prepareForRateChange(paymentNumber)
-        return currentPrinciple * (rate / 12) / 100
+        return currentPrinciple * (currentRate() / 12) / 100
     }
 
     override fun calculatesPaymentsFlowChart(limit: Int) : List<LoanPayment> {
