@@ -38,5 +38,4 @@ abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,
         val value = calculatesPaymentsFlowChart(1).firstOrNull()?.downPayment
         return value ?: 0.0
     }
-
 }
