@@ -6,7 +6,6 @@ import com.mortgage.server.mortgage.loans.fixeRate.FixedRate
 import com.mortgage.server.mortgage.models.LoanPayment
 
 open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, val interestRateChangesPerJump: Double = 0.0, principle: Double = 0.0, rate: Double = 0.0, monthsLength: Int = 0) : FixedRate(principle, rate, monthsLength, loanType, monthlyMadadChanges) {
-
     override fun prepareForRateChange(paymentNumber: Int) {
     }
 

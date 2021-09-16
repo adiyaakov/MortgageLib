@@ -25,7 +25,6 @@ abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,
         this.rate = rate
     }
 
-
     fun getFinancingPercentage(totalLoanAmount: Double) : Double {
         return totalLoanAmount / principle
     }
