@@ -12,13 +12,17 @@ abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,
     abstract fun rateChangesJump() : RateChangesJumps
     var rates = ArrayList<Double>()
     private set
+    var rate: Double
+        get() {
+            return rates.last()
+        }
+        set(value) {
+            this.rates.clear()
+            this.rates.add(value)
+        }
 
     init {
-        this.rates.add(rate)
-    }
-
-    fun currentRate() : Double {
-        return rates.last()
+        this.rate = rate
     }
 
 
