@@ -17,7 +17,7 @@ open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, 
     }
 
     private fun updateRate() {
-        var newRate = rate + interestRateChangesPerJump
+        var newRate = currentRate() + interestRateChangesPerJump
         this.rates.add(newRate)
     }
 

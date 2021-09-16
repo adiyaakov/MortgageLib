@@ -4,31 +4,33 @@ import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.models.LoanPayment
 
-abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0, rate: Double = 0.0, var monthsLength: Int = 0) {
+abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0, initialRate: Double = 0.0, var monthsLength: Int = 0) {
     abstract fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double
     abstract fun calculatesPaymentsFlowChart(limit: Int = monthsLength) : List<LoanPayment>
     abstract fun calculatesPrincipleChanges(monthlyPrinciple: Double) : Double
     abstract fun prepareForRateChange(paymentNumber: Int)
     abstract fun rateChangesJump() : RateChangesJumps
     var rates = ArrayList<Double>()
-    private set
-    var rate: Double
+        private set
+
+    var initialRate: Double
         get() {
-            return rates.last()
+            return initialRate
         }
         set(value) {
+            initialRate = value
             this.rates.clear()
             this.rates.add(value)
         }
 
     init {
-        this.rate = rate
+        this.initialRate = initialRate
     }
 
-    var initialRate : Double = 0.0
-        get() {
-            return rates.first()
-        }
+
+    fun currentRate() : Double {
+        return rates.last()
+    }
 
     fun getFinancingPercentage(totalLoanAmount: Double) : Double {
         return totalLoanAmount / principle
