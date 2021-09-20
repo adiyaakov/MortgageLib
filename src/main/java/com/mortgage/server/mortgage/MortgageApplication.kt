@@ -10,7 +10,6 @@ object MortgageApplication {
     @JvmStatic
     fun main(args: Array<String>) {
         FixedRateFiveYearsChangesLoan(300000.0, 4.3, 120, 0.0).calculatesPaymentsFlowChart()
-
     }
 
 
