@@ -12,7 +12,11 @@ abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,
     abstract fun rateChangesJump() : RateChangesJumps
     var rates = ArrayList<Double>()
         private set
-    
+
+    init {
+        this.rates.add(initialRate)
+    }
+
     fun overrideRate(initialRate: Double) {
         this.initialRate = initialRate
         rates.clear()
