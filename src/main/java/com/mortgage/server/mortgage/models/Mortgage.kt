@@ -33,6 +33,18 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         }
 
     public var primeInterestRateChangesPerJump: Double = 0.0
+        set(value) {
+            field = value
+            loansMix.filter { loan ->
+                (loan.loanType == LoanType.PRIME)
+            }.forEach { item ->
+                if (item is ChangeAbleRateLoan) {
+                    item.interestRateChangesPerJump = value
+                    item.overrideRate(item.initialRate)
+                }
+            }
+        }
+
     public var monthlyLoanExpenses: Double = 0.0
 
 
