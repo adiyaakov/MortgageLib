@@ -115,15 +115,17 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
             var initialPrinciple = 0.0
             var ratePayment: Double = 0.0
             var downPayment: Double = 0.0
+            var madadPayment: Double = 0.0
 
             flowChart.forEachIndexed{index, payments ->
                 if (payments.indices.contains(n)) {
                     initialPrinciple += payments[n].initialPrinciple
                     ratePayment += payments[n].ratePayment
                     downPayment += payments[n].downPayment
+                    madadPayment += payments[n].madadPayment
                 }
             }
-            data.add(LoanPayment(initialPrinciple, ratePayment, downPayment))
+            data.add(LoanPayment(initialPrinciple, ratePayment, downPayment, madadPayment))
         }
         return data;
     }

@@ -24,7 +24,7 @@ open class FixedRate(principle: Double = 0.0, rate: Double = 0.0, monthsLength: 
         for (index in 0 until limit) {
             val monthInitialPrinciple = if (result.isEmpty()) principle else result[index -1].afterPaymentPrinciple
             val ratePayment = getRateFor(monthInitialPrinciple, index + 1)
-            val loanPayment = LoanPayment(monthInitialPrinciple, ratePayment, downPayment)
+            val loanPayment = LoanPayment(monthInitialPrinciple, ratePayment, downPayment, 0.0)
             result.add(loanPayment)
         }
         return result
