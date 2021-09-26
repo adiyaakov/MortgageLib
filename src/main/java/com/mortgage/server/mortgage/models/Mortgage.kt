@@ -1,6 +1,7 @@
 package com.mortgage.server.mortgage.models
 
 import com.mortgage.server.mortgage.enums.LoanType
+import com.mortgage.server.mortgage.loans.YEARLY_NUMBER_OF_MONTHS
 import com.mortgage.server.mortgage.loans.oop.AbstractLoan
 import com.mortgage.server.mortgage.loans.oop.ChangeAbleRateLoan
 
@@ -13,7 +14,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
                 (loan.loanType == LoanType.STICKY_FIX_RATE_FIVE_YEARS) || loan.loanType == LoanType.STICKY_FIX_RATE
             }.forEach { item ->
                 if (item is ChangeAbleRateLoan) {
-                    item.monthlyMadad = yearlyMadadChange/12
+                    item.monthlyMadad = yearlyMadadChange / YEARLY_NUMBER_OF_MONTHS
                 }
             }
         }
