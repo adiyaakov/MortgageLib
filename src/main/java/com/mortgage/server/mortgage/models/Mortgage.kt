@@ -1,10 +1,40 @@
 package com.mortgage.server.mortgage.models
 
+import com.mortgage.server.mortgage.enums.LoanType
 import com.mortgage.server.mortgage.loans.oop.AbstractLoan
+import com.mortgage.server.mortgage.loans.oop.ChangeAbleRateLoan
 
 class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability: Double) {
     public var monthlyNetIncomes: Double = 0.0
+    public var yearlyMadadChange: Double = 0.0
+        set(value) {
+            field = value
+            loansMix.filter { loan ->
+                (loan.loanType == LoanType.STICKY_FIX_RATE_FIVE_YEARS) || loan.loanType == LoanType.STICKY_FIX_RATE
+            }.forEach { item ->
+                if (item is ChangeAbleRateLoan) {
+                    item.monthlyMadad = yearlyMadadChange/12
+                }
+            }
+        }
+
+
+    public var changeAbleInterestRateChangesPerJump: Double = 0.0
+        set(value) {
+            field = value
+            loansMix.filter { loan ->
+                (loan.loanType == LoanType.STICKY_FIX_RATE_FIVE_YEARS) || loan.loanType == LoanType.FIX_RATE_FIVE_YEARS
+            }.forEach { item ->
+                if (item is ChangeAbleRateLoan) {
+                    item.interestRateChangesPerJump = value
+                    item.overrideRate(item.initialRate)
+                }
+            }
+        }
+
+    public var primeInterestRateChangesPerJump: Double = 0.0
     public var monthlyLoanExpenses: Double = 0.0
+
 
     fun availableMoneyPerMonth() : Double {
         return monthlyNetIncomes - monthlyLoanExpenses
