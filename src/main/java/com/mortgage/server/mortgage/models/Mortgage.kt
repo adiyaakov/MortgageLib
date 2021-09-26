@@ -19,7 +19,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         }
 
 
-    public var changeAbleInterestRateChangesPerJump: Double = 0.0
+    public var additionalInterestRateChangesPerJump: Double = 0.0
         set(value) {
             field = value
             loansMix.filter { loan ->
@@ -32,7 +32,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
             }
         }
 
-    public var primeInterestRateChangesPerJump: Double = 0.0
+    public var additionalPrimeInterestRateChangesPerJump: Double = 0.0
         set(value) {
             field = value
             loansMix.filter { loan ->
