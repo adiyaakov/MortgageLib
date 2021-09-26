@@ -25,7 +25,9 @@ open class ChangeAbleRateLoan(loanType: LoanType, monthlyMadadChanges: Double?, 
         val result = ArrayList<LoanPayment>()
         var downPayment = downPayment(principle, if (result.isEmpty()) monthsLength else monthsLength)
         for (index in 0 until limit) {
-            val monthInitialPrinciple = if (result.isEmpty()) principle else result[index -1].afterPaymentPrinciple
+            var monthInitialPrinciple = if (result.isEmpty()) principle else result[index -1].afterPaymentPrinciple
+            monthInitialPrinciple = calculatesPrincipleChanges(monthInitialPrinciple)// Included Madad changes if exists 
+
             if (shouldPrepareForRateChange(index + 1)) {
                 updateRate()
                 downPayment = downPayment(monthInitialPrinciple, monthsLength - index)
