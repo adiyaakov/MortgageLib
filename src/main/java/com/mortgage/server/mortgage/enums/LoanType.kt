@@ -1,7 +1,11 @@
 package com.mortgage.server.mortgage.enums
 
-enum class LoanType(val index: Int) {
+enum class LoanType(val id: Long) {
     FIX_RATE(0), STICKY_FIX_RATE(1), FIX_RATE_FIVE_YEARS(2), STICKY_FIX_RATE_FIVE_YEARS(3) , PRIME(4);
+
+    companion object {
+        fun valueOf(id: Long) = values().first { it.id == id }
+    }
 
     fun hebName() : String {
         return when(this) {
