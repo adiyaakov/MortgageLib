@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "avg_interest_rate")
-public class AvgInterestRate {
+public class AvgInterestRateEntity {
 
     @Id
     @Column(name = "id", nullable = false)

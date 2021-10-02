@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "loans_mortgage")
-public class LoansMortgage {
+public class LoansMortgageEntity {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -21,7 +21,7 @@ public class LoansMortgage {
     private Long loanTypeId;
 
     @Column(name = "percent", nullable = false)
-    private String percent;
+    private Double percent;
 
     @Column(name = "number_of_months", nullable = false)
     private Integer numberOfMonths;

@@ -6,15 +6,15 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "mortgage")
-public class Mortgage {
+@Table(name = "loans_type")
+public class LoansTypeEntity {
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+    @Column(name = "name", nullable = false)
+    private String name;
 
 }
