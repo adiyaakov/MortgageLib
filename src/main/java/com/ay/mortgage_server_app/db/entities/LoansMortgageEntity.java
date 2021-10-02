@@ -10,20 +10,44 @@ import javax.persistence.*;
 public class LoansMortgageEntity {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
-    @Column(name = "mortgage_id", nullable = false)
-    private Long mortgageId;
 
-    @Column(name = "loan_type_id", nullable = false)
-    private Long loanTypeId;
+    //@OneToOne(targetEntity = MortgageEntity.class)
+    @JoinColumn(name = "mortgage_id", nullable = false)
+    public Long mortgageId;
 
+    @OneToOne(targetEntity = LoansTypeEntity.class)
+    @JoinColumn(name = "loan_type_id", nullable = false)
+    public Long loanTypeId;
+
+    @Basic
     @Column(name = "percent", nullable = false)
-    private Double percent;
+    public Double percent;
 
+    @Basic
     @Column(name = "number_of_months", nullable = false)
-    private Integer numberOfMonths;
+    public Integer numberOfMonths;
 
+    public Long getId() {
+        return id;
+    }
+
+    public Long getMortgageId() {
+        return mortgageId;
+    }
+
+    public Long getLoanTypeId() {
+        return loanTypeId;
+    }
+
+    public Double getPercent() {
+        return percent;
+    }
+
+    public Integer getNumberOfMonths() {
+        return numberOfMonths;
+    }
 }

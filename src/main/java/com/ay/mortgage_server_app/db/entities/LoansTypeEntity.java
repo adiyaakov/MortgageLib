@@ -10,10 +10,11 @@ import javax.persistence.*;
 public class LoansTypeEntity {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Basic
     @Column(name = "name", nullable = false)
     private String name;
 
