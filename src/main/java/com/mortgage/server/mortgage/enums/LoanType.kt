@@ -7,6 +7,16 @@ enum class LoanType(val id: Long) {
         fun valueOf(id: Long) = values().first { it.id == id }
     }
 
+    fun optimizePriority(numberOfMonths: Int) : Int {
+        return when(this) {
+            FIX_RATE -> return 1
+            STICKY_FIX_RATE ->  if (numberOfMonths >= 180) 4 else 3
+            FIX_RATE_FIVE_YEARS -> 2
+            STICKY_FIX_RATE_FIVE_YEARS -> if (numberOfMonths >= 180) 6 else 5
+            PRIME -> 10
+        }
+    }
+
     fun hebName() : String {
         return when(this) {
             FIX_RATE -> "קבועה לא צמודה"

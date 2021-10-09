@@ -19,7 +19,6 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
             }
         }
 
-
     public var additionalInterestRateChangesPerJump: Double = 0.0
         set(value) {
             field = value
@@ -149,5 +148,35 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         } else {
             MortgageSummary(moneyPrice, firstPayment, loanMixes)
         }
+    }
+
+    fun optimizeLoans() {
+        var firstPayment = getMortgageSummary()?.firstPayment
+
+        if (firstPayment != null && firstPayment > refundCapability) {
+            return
+        }
+        loansMix.sortBy { it.loanType.optimizePriority(it.monthsLength) }
+        val paymentsMap = HashMap<Int, Double>()
+        loansMix.forEachIndexed { index, abstractLoan ->
+            paymentsMap[index] = abstractLoan.getFirstPayment()
+        }
+
+        loansMix.forEachIndexed { index, abstractLoan ->
+            var clonedLoan = abstractLoan;
+
+            while (refundCapability > optimizedFirstPayment(clonedLoan, paymentsMap, index)) {
+                loansMix[index] = clonedLoan
+                paymentsMap[index] = clonedLoan.getFirstPayment()
+                println("[AY] Optimize loan ${clonedLoan.loanType} | numOfMonths: ${clonedLoan.monthsLength} ${paymentsMap.values.sum()}")
+            }
+        }
+    }
+
+    private fun optimizedFirstPayment(clonedLoan: AbstractLoan, paymentsMap: HashMap<Int, Double>, index: Int): Double {
+        clonedLoan.monthsLength = clonedLoan.monthsLength - 1
+        val firstPayment = clonedLoan.getFirstPayment()
+        //Monthly payment
+        return paymentsMap.filter { it.key != index }.values.sum() + firstPayment
     }
 }
