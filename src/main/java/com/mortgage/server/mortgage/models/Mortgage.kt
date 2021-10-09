@@ -130,4 +130,24 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         }
         return data;
     }
+
+    fun getMortgageSummary() : MortgageSummary? {
+        val requiredPrinciple = this.assetWorth - this.equity
+        var downPaymentSum = 0.0
+        var firstPayment = 0.0
+        var loanMixes: ArrayList<LoanSummary> = ArrayList()
+        loansMix.forEach { loan ->
+            val loanSummary = loan.calculateLoanSummaryFor(requiredPrinciple)
+            downPaymentSum += loanSummary.downPaymentSum
+            firstPayment += loanSummary.firstPayment
+            loanMixes.add(loanSummary)
+        }
+        val moneyPrice = downPaymentSum/requiredPrinciple
+        return if (1 > moneyPrice) {
+            //Calculation BUG!!!
+            null
+        } else {
+            MortgageSummary(moneyPrice, firstPayment, loanMixes)
+        }
+    }
 }
