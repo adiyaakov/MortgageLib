@@ -5,7 +5,7 @@ import com.mortgage.server.mortgage.enums.RateChangesJumps
 import com.mortgage.server.mortgage.models.LoanPayment
 import com.mortgage.server.mortgage.models.LoanSummary
 
-abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,  var initialRate: Double = 0.0, var monthsLength: Int = 0) {
+abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,  var initialRate: Double = 0.0, var monthsLength: Int = 0) : Cloneable {
     abstract fun downPayment(currentPrinciple: Double, monthsRemains: Int): Double
     abstract fun calculatesPaymentsFlowChart(limit: Int = monthsLength) : List<LoanPayment>
     abstract fun calculatesPrincipleChanges(monthlyPrinciple: Double) : Double
@@ -16,6 +16,10 @@ abstract class AbstractLoan(var loanType: LoanType, var principle: Double = 0.0,
 
     init {
         this.rates.add(initialRate)
+    }
+
+    public override fun clone(): AbstractLoan {
+        return super.clone() as AbstractLoan
     }
 
     fun overrideRate(initialRate: Double) {

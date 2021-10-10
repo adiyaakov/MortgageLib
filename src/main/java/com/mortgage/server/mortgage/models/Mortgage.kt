@@ -143,7 +143,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         }
         val moneyPrice = downPaymentSum/requiredPrinciple
         return MortgageSummary(moneyPrice, firstPayment, loanMixes)
-        
+
     }
 
     fun optimizeLoans() {
@@ -159,20 +159,30 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
         }
 
         loansMix.forEachIndexed { index, abstractLoan ->
-            var clonedLoan = abstractLoan;
+            val clonedLoan = abstractLoan.clone();
 
             while (refundCapability > optimizedFirstPayment(clonedLoan, paymentsMap, index)) {
-                loansMix[index] = clonedLoan
-                paymentsMap[index] = clonedLoan.getFirstPayment()
-                println("[AY] Optimize loan ${clonedLoan.loanType} | numOfMonths: ${clonedLoan.monthsLength} ${paymentsMap.values.sum()}")
+                    val originalLoan = loansMix[index]
+                    loansMix[index] = clonedLoan
+                    if (loansMix.sumByDouble { it.getFirstPayment() } > refundCapability) {
+                        loansMix[index] = originalLoan
+                    } else {
+                        loansMix[index].monthsLength --
+                    }
+                    paymentsMap[index] = clonedLoan.getFirstPayment()
+                }
+
             }
-        }
+        println("[C] " + loansMix.sumByDouble { it.getFirstPayment() })
+
     }
 
-    private fun optimizedFirstPayment(clonedLoan: AbstractLoan, paymentsMap: HashMap<Int, Double>, index: Int): Double {
+    private fun optimizedFirstPayment(originLoan: AbstractLoan, paymentsMap: HashMap<Int, Double>, index: Int): Double {
+        var clonedLoan = originLoan.clone()
         clonedLoan.monthsLength = clonedLoan.monthsLength - 1
         val firstPayment = clonedLoan.getFirstPayment()
         //Monthly payment
+        println("[AY] ${paymentsMap.filter { it.key != index }.values.sum() + firstPayment}")
         return paymentsMap.filter { it.key != index }.values.sum() + firstPayment
     }
 }
