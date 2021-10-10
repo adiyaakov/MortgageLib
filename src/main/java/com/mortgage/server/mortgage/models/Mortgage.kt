@@ -142,7 +142,7 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
             loanMixes.add(loanSummary)
         }
         val moneyPrice = downPaymentSum/requiredPrinciple
-        return if (1 > moneyPrice) {
+        return if (moneyPrice > 1) {
             //Calculation BUG!!!
             null
         } else {
