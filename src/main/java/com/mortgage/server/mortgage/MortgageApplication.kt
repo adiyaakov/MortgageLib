@@ -10,10 +10,11 @@ import com.mortgage.server.mortgage.models.Mortgage
 object MortgageApplication {
     @JvmStatic
     fun main(args: Array<String>) {
-//        val mort = Mortgage(1000000.0, 500000.0, 5000.0)
-//        mort.insertOrUpdateLoan(0, FixedRateFiveYearsChangesLoan(900000.0, 2.3, 360, 0.0))
-//        mort.insertOrUpdateLoan(0, PrimeLoan(300000.0, 1.3, 360, 0.0))
-//        mort.optimizeLoans()
+        val mort = Mortgage(1000000.0, 400000.0, 8000.0)
+        mort.insertOrUpdateLoan(0, StickyFixedRateLoan(200000.0, 2.3, 360, 0.125))
+        mort.insertOrUpdateLoan(0, PrimeLoan(400000.0, 1.3, 360, 0.0))
+        mort.optimizeLoans()
+        mort.getMortgageSummary()
     }
 
 

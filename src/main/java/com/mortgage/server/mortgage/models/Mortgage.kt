@@ -142,12 +142,8 @@ class Mortgage(var assetWorth: Double, var equity: Double, var refundCapability:
             loanMixes.add(loanSummary)
         }
         val moneyPrice = downPaymentSum/requiredPrinciple
-        return if (moneyPrice > 1) {
-            //Calculation BUG!!!
-            null
-        } else {
-            MortgageSummary(moneyPrice, firstPayment, loanMixes)
-        }
+        return MortgageSummary(moneyPrice, firstPayment, loanMixes)
+        
     }
 
     fun optimizeLoans() {
