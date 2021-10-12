@@ -20,8 +20,8 @@ object MortgageApplication {
 //        mort.insertOrUpdateLoan(0, OgenMakamOneYearChangesLoan(227500.0, 1.3, 360, 0.0))
 //
 //
-//        mort.optimizeLoans()
-//        mort.getMortgageSummary()
+        mort.optimizeLoans()
+        mort.getMortgageSummary()
 
     }
 
