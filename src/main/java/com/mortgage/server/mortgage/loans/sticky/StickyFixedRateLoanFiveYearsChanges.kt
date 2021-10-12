@@ -9,3 +9,6 @@ class StickyFixedRateLoanFiveYearsChanges(principle: Double = 0.0, rate: Double 
         return RateChangesJumps.FIVE_YEARS
     }
 }
+
+
+
